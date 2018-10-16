@@ -9,6 +9,7 @@ GOOS?=linux
 DOCKER?=docker
 SED_I?=sed -i
 GOHOSTOS ?= $(shell go env GOHOSTOS)
+IMGNAME?=custom-error-pages
 
 PKG=k8s.io/ingress-nginx/images/custom-error-pages
 
@@ -32,7 +33,6 @@ ALL_ARCH = amd64 arm arm64 ppc64le
 
 QEMUVERSION=v2.12.0-1
 
-IMGNAME = custom-error-pages
 IMAGE = $(REGISTRY)/$(IMGNAME)
 MULTI_ARCH_IMG = $(IMAGE)-$(ARCH)
 
