@@ -5,16 +5,16 @@ We use this image as the `default-backend-service` for the `kubernetes-ingress-c
 # How to update the image?
 
 1. Edit the HTML or JSON pages in `rootfs/www`
-2. Build a new binary
+2. Build a new binary (don't forget to update the TAG)
 ```
-make build
+TAG=0.2 REGISTRY=quay.io/hunter-io IMGNAME=nginx-backend make build
 ```
 3. Build the new image (don't forget to update the TAG)
 ```
-TAG=0.1 REGISTRY=quay.io/hunter-io IMGNAME=nginx-backend make all-container
+TAG=0.2 REGISTRY=quay.io/hunter-io IMGNAME=nginx-backend make all-container
 ```
 4. Push that new image to the quay repository
 ```
-docker push quay.io/hunter-io/nginx-backend:0.1
+docker push quay.io/hunter-io/nginx-backend:0.2
 ```
-5. Then make the `default-http-backend` deployment use that new image
+5. Then make the `nginx-backend` deployment use that new image
