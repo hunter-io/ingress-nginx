@@ -94,9 +94,9 @@ func errorHandler(path string) func(http.ResponseWriter, *http.Request) {
 		}
 
 		format := r.Header.Get(FormatHeader)
-		if format == "" {
+		if format != "text/html" && format != "application/json" {
 			format = "text/html"
-			log.Printf("format not specified. Using %v", format)
+			log.Printf("invalid format. Using %v", format)
 		}
 
 		cext, err := mime.ExtensionsByType(format)
