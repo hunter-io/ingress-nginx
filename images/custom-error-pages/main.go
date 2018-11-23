@@ -20,7 +20,6 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"mime"
 	"net/http"
 	"os"
 	"strconv"
@@ -94,19 +93,16 @@ func errorHandler(path string) func(http.ResponseWriter, *http.Request) {
 		}
 
 		format := r.Header.Get(FormatHeader)
-		if format != "text/html" && format != "application/json" {
+
+		// We only support application/json or text/html. All the other format
+		// are fallbacked to "text/html".
+		if format == "application/json" {
+			ext = "json"
+		} else {
 			format = "text/html"
-			log.Printf("invalid format. Using %v", format)
+			ext = "html"
 		}
 
-		cext, err := mime.ExtensionsByType(format)
-		if err != nil {
-			log.Printf("unexpected error reading media type extension: %v. Using %v", err, ext)
-		} else if len(cext) == 0 {
-			log.Printf("couldn't get media type extension. Using %v", ext)
-		} else {
-			ext = cext[0]
-		}
 		w.Header().Set(ContentType, format)
 
 		errCode := r.Header.Get(CodeHeader)
