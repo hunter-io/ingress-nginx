@@ -26,7 +26,7 @@
 
 [[projects]]
   digest = "1:01252cd79aac70f16cac02a72a1067dd136e0ad6d5b597d0129cf74c739fd8d1"
-  name = "github.com/Sirupsen/logrus"
+  name = "github.com/sirupsen/logrus"
   packages = ["."]
   pruneopts = "NUT"
   revision = "a67f783a3814b8729bd2dac5780b5f78f8dbd64d"

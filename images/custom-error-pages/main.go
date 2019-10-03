@@ -106,6 +106,10 @@ func errorHandler(path string) func(http.ResponseWriter, *http.Request) {
 		w.Header().Set(ContentType, format)
 
 		errCode := r.Header.Get(CodeHeader)
+		if errCode == "" {
+			errCode = "200"
+		}
+
 		code, err := strconv.Atoi(errCode)
 		if err != nil {
 			code = 404
@@ -129,12 +133,12 @@ func errorHandler(path string) func(http.ResponseWriter, *http.Request) {
 				return
 			}
 			defer f.Close()
-			log.Printf("serving custom error response for code %v and format %v from file %v", code, format, file)
+			log.Printf("serving custom response for code %v and format %v from file %v", code, format, file)
 			io.Copy(w, f)
 			return
 		}
 		defer f.Close()
-		log.Printf("serving custom error response for code %v and format %v from file %v", code, format, file)
+		log.Printf("serving custom response for code %v and format %v from file %v", code, format, file)
 		io.Copy(w, f)
 
 		duration := time.Now().Sub(start).Seconds()
